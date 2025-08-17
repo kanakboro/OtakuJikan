@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.otakujikan.viewmodel.AnimeDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.AnimeDetailsFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/space_5x"
+            android:layout_height="@dimen/space_5x"
+            android:layout_marginHorizontal="@dimen/space_2x"
+            android:layout_marginTop="@dimen/space_1x"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivBack">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/space_2x">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvPoster"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/space_2x"
+                        android:layout_marginHorizontal="@dimen/space_3x"
+                        app:cardCornerRadius="@dimen/space_2x"
+                        app:layout_constraintDimensionRatio="1:1.4"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivPoster"
+                            imageUrl="@{viewModel.animeDetails.images.jpg.largeImageUrl}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_top_bottom_gradient"
+                        android:elevation="@dimen/space_1x"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/space_2x"
+                        android:paddingTop="@dimen/space_1x"
+                        android:paddingBottom="@dimen/space_2x"
+                        app:layout_constraintBottom_toBottomOf="@id/cvPoster"
+                        app:layout_constraintEnd_toEndOf="@id/cvPoster"
+                        app:layout_constraintStart_toStartOf="@id/cvPoster">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/AnimeDetailName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="4"
+                            android:text="@{viewModel.animeDetails.title}" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/AnimeDetailEpAndRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text='@{"Episodes "+viewModel.animeDetails.episodes +"  |"}' />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/AnimeDetailEpAndRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_1x"
+                                android:drawableStart="@drawable/ic_rating"
+                                android:drawablePadding="@dimen/space_0.5x"
+                                android:text='@{""+viewModel.animeDetails.score+"  |"}' />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/AnimeDetailEpAndRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_1x"
+                                android:text="@{viewModel.animeDetails.type}" />
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/space_1x"
+                            android:adapter="@{viewModel.adapter}"
+                            android:nestedScrollingEnabled="false"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/row_genre" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTrailer"
+                        style="@style/AnimeDetailTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trailer"
+                        android:visibility="@{viewModel.isTrailerAvailable() ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvPoster" />
+
+
+                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                        android:id="@+id/youtubePlayerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_1x"
+                        android:visibility="@{viewModel.isTrailerAvailable() ? View.VISIBLE : View.GONE }"
+                        app:layout_constraintTop_toBottomOf="@id/tvTrailer" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTitleSynopsis"
+                        style="@style/AnimeDetailTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/synopsis"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/youtubePlayerView" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/AnimeDetailSynopsis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_1x"
+                        android:text="@{viewModel.animeDetails.synopsis}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitleSynopsis" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.otakujikan.domain.model.fetchtopanime.GenresItem" />
+
+    </data>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_1x"
+        style="@style/AnimeListEpAndRating"
+        android:background="@drawable/bg_stroke_8dp"
+        android:paddingHorizontal="@dimen/space_1x"
+        android:paddingVertical="@dimen/space_0.5x"
+        android:text="@{model.name}" />
+</layout>

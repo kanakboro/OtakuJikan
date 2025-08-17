@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.otakujikan.domain.model.fetchtopanime.DataItem" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_1x"
+        android:onClick='@{(v) -> model.onItemClick.onClick(v,model.adapterPosition, "animeItem")}'>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvPoster"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:cardCornerRadius="@dimen/space_1x"
+                app:layout_constraintDimensionRatio="1:1.5"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    imageUrl="@{model.images.jpg.largeImageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/anime_poster"
+                    android:scaleType="fitXY" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_left_bottom_8dp"
+                android:elevation="@dimen/space_1x"
+                style="@style/AnimeListEpAndRating"
+                android:text='@{"EP " + model.episodes}'
+                app:layout_constraintBottom_toBottomOf="@id/cvPoster"
+                app:layout_constraintStart_toStartOf="@id/cvPoster" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_right_bottom_8dp"
+                android:drawableStart="@drawable/ic_rating"
+                android:drawablePadding="@dimen/space_0.5x"
+                android:elevation="@dimen/space_1x"
+                style="@style/AnimeListEpAndRating"
+                android:text='@{"" +model.score}'
+                app:layout_constraintBottom_toBottomOf="@id/cvPoster"
+                app:layout_constraintEnd_toEndOf="@id/cvPoster" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/AnimeListName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{model.title}"
+                android:maxLines="2"
+                app:layout_constraintTop_toBottomOf="@id/cvPoster" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
