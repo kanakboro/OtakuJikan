@@ -163,7 +163,6 @@ All dependencies are managed through the `libs.versions.toml` file in the gradle
 ## Deployment
 - **Release Build**: ProGuard disabled for debugging
 - **Signing**: Standard Android app signing process
-- **Distribution**: Google Play Store ready
 
 ## Conclusion
 OtakuJikan is a well-structured Android application that demonstrates modern Android development practices. While it has some limitations, it provides a solid foundation for an anime discovery app with room for significant enhancements and feature additions. 
