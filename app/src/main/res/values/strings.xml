@@ -3,4 +3,5 @@
     <string name="anime_poster">Anime Poster</string>
     <string name="trailer">Trailer</string>
     <string name="synopsis">Synopsis</string>
+    <string name="no_anime_found_to_display">No Anime Found to Display!\nPlease check your internet connection</string>
 </resources>

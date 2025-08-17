@@ -1,5 +1,6 @@
 package com.otakujikan.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonElement
@@ -22,6 +23,7 @@ class HomeViewModel @Inject constructor(
     private val gsonProvider: GsonProvider
 ) : ViewModel() {
 
+    val isErrorShow: ObservableField<Boolean> = ObservableField(false)
     private val _listItemClickListener = MutableSharedFlow<DataItem?>()
     val listItemClickListener: SharedFlow<DataItem?> = _listItemClickListener.asSharedFlow()
 
@@ -58,6 +60,7 @@ class HomeViewModel @Inject constructor(
      * @param jsonElement The JSON element containing the anime data.
      */
     fun handleTopAnimeResponse(jsonElement: JsonElement?) {
+        isErrorShow.set(false)
         jsonElement?.let { json ->
             gsonProvider.getTopAnimeResponse(json).let {
                 it.data?.let { list ->

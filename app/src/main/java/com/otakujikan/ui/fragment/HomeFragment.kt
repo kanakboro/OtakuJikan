@@ -1,7 +1,6 @@
 package com.otakujikan.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -97,6 +96,7 @@ class HomeFragment : AbstractFragment() {
                             is UiState.Error -> {
                                 setLoading(false)
                                 if (viewModel.adapter.getAllItems().isEmpty()) {
+                                    viewModel.isErrorShow.set(true)
                                     Toast.makeText(
                                         requireContext(),
                                         state.message,

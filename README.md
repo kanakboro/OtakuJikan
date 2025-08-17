@@ -55,14 +55,6 @@ The application follows **MVVM (Model-View-ViewModel)** architecture with **Clea
 - **Glide**: Image loading and caching
 - **YouTube Player**: Embedded video playback
 
-### API Integration
-- **Base URL**: `https://api.jikan.moe/v4/`
-- **Endpoints**:
-  - `GET /top/anime` - Fetch top anime list
-  - `GET /anime/{id}` - Fetch anime details by ID
-- **Response Handling**: JSON parsing with Gson
-- **Error Codes**: HTTP status code handling (401, 404, 5xx)
-
 ### Database Schema
 - **AnimeEntity**: Stores top anime data as JSON
 - **Table**: `top_anime`
@@ -79,7 +71,6 @@ The application follows **MVVM (Model-View-ViewModel)** architecture with **Clea
 ### 1. API Assumptions
 - **Jikan API Availability**: Assumes the Jikan API is always accessible and responsive
 - **Data Structure**: Assumes consistent JSON response structure from the API
-- **Rate Limiting**: No explicit handling of API rate limits
 - **Authentication**: No authentication required for public anime data
 
 ### 2. User Experience Assumptions
@@ -106,23 +97,11 @@ The application follows **MVVM (Model-View-ViewModel)** architecture with **Clea
 ### 2. Technical Limitations
 - **Single Data Source**: Only integrates with Jikan API (MyAnimeList)
 - **Limited Caching**: Only top anime list is cached, not individual details
-- **No Image Preloading**: Images load on-demand without preloading
-- **Memory Usage**: No explicit memory management for large image collections
 - **Network Timeouts**: Fixed 40-second timeout for all network requests
 
 ### 3. UI/UX Limitations
-- **Fixed Grid**: 3-column grid layout cannot be customized
 - **No Dark Mode**: Only light theme available
 - **Limited Accessibility**: Basic accessibility features only
-- **No Landscape Support**: Layout optimized for portrait orientation
-- **Fixed Typography**: Limited font customization options
-
-### 4. Performance Limitations
-- **Synchronous Operations**: Some operations block the main thread
-- **No Pagination**: Loads all top anime at once
-- **Image Quality**: No quality selection for different network conditions
-- **Cache Size**: No configurable cache size limits
-- **Background Processing**: Limited background task handling
 
 ## Future Enhancements
 
@@ -131,12 +110,11 @@ The application follows **MVVM (Model-View-ViewModel)** architecture with **Clea
 2. **User Accounts**: Implement user authentication and personalization
 3. **Watchlist**: Allow users to save anime to watch later
 4. **Categories**: Browse anime by genre, season, or year
-5. **Offline Mode**: Cache anime details for offline viewing
-6. **Dark Theme**: Implement dark mode support
-7. **Pagination**: Implement infinite scrolling for large lists
-8. **Image Optimization**: Add image quality selection and compression
-9. **Push Notifications**: Notify users about new anime releases
-10. **Social Features**: Share anime recommendations with friends
+5. **Dark Theme**: Implement dark mode support
+6. **Pagination**: Implement infinite scrolling for large lists
+7. **Image Optimization**: Add image quality selection and compression
+8. **Push Notifications**: Notify users about new anime releases
+9. **Social Features**: Share anime recommendations with friends
 
 ## Development Setup
 
@@ -158,12 +136,6 @@ All dependencies are managed through the `libs.versions.toml` file in the gradle
 ## Testing
 - **Unit Tests**: Basic test structure in place
 - **Instrumented Tests**: Android device testing setup
-- **Test Coverage**: Limited test coverage for core functionality
-
-## Deployment
-- **Release Build**: ProGuard disabled for debugging
-- **Signing**: Standard Android app signing process
-- **Distribution**: Google Play Store ready
 
 ## Conclusion
 OtakuJikan is a well-structured Android application that demonstrates modern Android development practices. While it has some limitations, it provides a solid foundation for an anime discovery app with room for significant enhancements and feature additions. 
